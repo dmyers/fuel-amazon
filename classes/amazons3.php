@@ -6,7 +6,7 @@
  * @package		AmazonS3
  * @category	Package
  * @author		Derek Myers
- * @link		https://github.com/dmyers/fuel-amazon-s3
+ * @link		https://github.com/dmyers/fuel-amazons3
  */
  
 namespace AmazonS3;

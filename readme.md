@@ -12,7 +12,7 @@ A super simple AmazonS3 package for the Amazon's S3 PHP SDK for Fuel.
 
 If you are installing this as a submodule (recommended) in your git repo root, run this command:
 
-	$ git submodule add git://github.com/dmyers/fuel-amazon-s3.git fuel/packages/amazons3
+	$ git submodule add git://github.com/dmyers/fuel-amazons3.git fuel/packages/amazons3
 
 Then you you need to initialize and update the submodule:
 
