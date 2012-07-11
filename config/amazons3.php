@@ -16,7 +16,7 @@ return array(
 	'secret_access_key' => 'your_secret_key',
 
 	/**
-	 * use_ssl - The scope permissions to request from the user.
+	 * use_ssl - Whether to use secure connections.
 	 */
 	'use_ssl'  => false,
 );

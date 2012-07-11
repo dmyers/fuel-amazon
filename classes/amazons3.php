@@ -42,11 +42,11 @@ class AmazonS3 extends \S3
 		$config = \Config::get('amazons3');
 		
 		if (empty($config['access_key_id'])) {
-			throw new AmazonS3_Exception('You must set the access_key_id config');
+			throw new AmazonS3Exception('You must set the access_key_id config');
 		}
 
 		if (empty($config['secret_access_key'])) {
-			throw new AmazonS3_Exception('You must set the secret_access_key config');
+			throw new AmazonS3Exception('You must set the secret_access_key config');
 		}
 		
 		return new static($config['access_key_id'], $config['secret_access_key'], $config['use_ssl']);
@@ -70,5 +70,5 @@ class AmazonS3 extends \S3
 
 }
 
-class AmazonS3_Exception extends \Fuel_Exception {
+class AmazonS3Exception extends \FuelException {
 }
