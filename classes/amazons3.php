@@ -26,6 +26,8 @@ class AmazonS3 extends \S3
 	public static function _init()
 	{
 		\Config::load('amazons3', true);
+		
+		self::$useExceptions = true;
 	}
 
 	/**
