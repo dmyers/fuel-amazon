@@ -77,13 +77,21 @@ class AmazonS3 extends \S3
 		}
 
 		if (empty($acl)) {
-			$acl = \Config::get('amazons3.default_acl');
+			$acl = \Config::get('amazons3.default_acl', self::ACL_PRIVATE);
 		}
 
 		return parent::putObject($input, $bucket, $uri, $acl, $metaHeaders, $requestHeaders, $storageClass);
 	}
 
+	public static function putObjectFile($file, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $contentType = null)
+	{
+		return self::putObject(self::inputFile($file), $bucket, $uri, $acl, $metaHeaders, $contentType);
+	}
+
+	public static function putObjectString($string, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $contentType = 'text/plain')
+	{
+		return self::putObject($string, $bucket, $uri, $acl, $metaHeaders, $contentType);
+	}
 }
 
-class AmazonS3Exception extends \FuelException {
-}
+class AmazonS3Exception extends \FuelException {}
