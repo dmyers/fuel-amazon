@@ -70,6 +70,19 @@ class AmazonS3 extends \S3
 		return self::$_instance;
 	}
 
+	public static function putObject($input, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
+	{
+		if (empty($bucket)) {
+			$bucket = \Config::get('amazons3.default_bucket');
+		}
+
+		if (empty($acl)) {
+			$acl = \Config::get('amazons3.default_acl');
+		}
+
+		return parent::putObject($input, $bucket, $uri, $acl, $metaHeaders, $requestHeaders, $storageClass);
+	}
+
 }
 
 class AmazonS3Exception extends \FuelException {

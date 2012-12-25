@@ -19,4 +19,14 @@ return array(
 	 * use_ssl - Whether to use secure connections.
 	 */
 	'use_ssl'  => false,
+
+	/**
+	 * default_bucket - The bucket to use as default.
+	 */
+	'default_bucket' => 'your_bucket',
+
+	/**
+	 * default_acl - The ACL option to use as default.
+	 */
+	'default_acl' => 'private',
 );
