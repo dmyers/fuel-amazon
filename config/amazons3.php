@@ -28,5 +28,5 @@ return array(
 	/**
 	 * default_acl - The ACL option to use as default.
 	 */
-	'default_acl' => 'private',
+	'default_acl' => AmazonS3::ACL_PRIVATE,
 );
