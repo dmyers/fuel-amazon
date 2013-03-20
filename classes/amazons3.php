@@ -116,6 +116,23 @@ class AmazonS3 extends \S3
 		return self::$_instance;
 	}
 	
+	/**
+	 * Gets the url to the object uri.
+	 *
+	 * @param string $bucket The bucket name to use.
+	 * @param string $uri    The URI to the object.
+	 *
+	 * @return string
+	 */
+	public static function url($bucket = null, $uri)
+	{
+		if (empty($bucket)) {
+			$bucket = self::config('default_bucket');
+		}
+		
+		return Input::protocol() . '://' . self::config('host_url') . '/' . $bucket . '/' . $uri;
+	}
+	
 	public static function putObject($input, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
 	{
 		if (empty($bucket)) {
