@@ -17,17 +17,63 @@ class AmazonS3 extends \S3
 {
 	/**
 	 * loaded amazon s3 instance
+	 * 
+	 * @var AmazonS3
 	 */
 	protected static $_instance;
+	
+	/**
+	 * loaded amazon s3 config array
+	 * 
+	 * @var array
+	 */
+	protected static $_config;
 	
 	/**
 	 * Initialize by loading config
 	 */
 	public static function _init()
 	{
-		\Config::load('amazons3', true);
+		$config = \Config::load('amazons3', true);
+		
+		self::set_config($config);
 		
 		self::$useExceptions = true;
+	}
+	
+	/**
+	 * Gets an item from config.
+	 *
+	 * @param string $name    The key name to get.
+	 * @param string $default The default is no config found.
+	 *
+	 * @return mixed
+	 */
+	public static function config($name = null, $default = null)
+	{
+		if (empty($name)) {
+			return self::$_config;
+		}
+		
+		return \Arr::get(self::$_config, $name, $default);
+	}
+	
+	/**
+	 * Sets an item or array of items in config.
+	 *
+	 * @param array|string $name  The key name to set.
+	 * @param mixed        $value The value to set config to.
+	 * 
+	 * @return void
+	 */
+	public static function set_config($name, $value)
+	{
+		if (is_array($name)) {
+			self::$_config = array_merge(self::$_config, $name);
+		}
+		else {
+			self::$_config[$name] = $value;
+		}
 	}
 	
 	/**
@@ -41,7 +87,7 @@ class AmazonS3 extends \S3
 	 */
 	public static function forge()
 	{
-		$config = \Config::get('amazons3');
+		$config = self::config();
 		
 		if (empty($config['access_key_id'])) {
 			throw new \AmazonS3Exception('You must set the access_key_id config');
@@ -73,11 +119,11 @@ class AmazonS3 extends \S3
 	public static function putObject($input, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
 	{
 		if (empty($bucket)) {
-			$bucket = \Config::get('amazons3.default_bucket');
+			$bucket = self::config('default_bucket');
 		}
 		
 		if (empty($acl)) {
-			$acl = \Config::get('amazons3.default_acl', self::ACL_PRIVATE);
+			$acl = self::config('default_acl', self::ACL_PRIVATE);
 		}
 		
 		return parent::putObject($input, $bucket, $uri, $acl, $metaHeaders, $requestHeaders, $storageClass);
@@ -96,7 +142,7 @@ class AmazonS3 extends \S3
 	public static function getObject($bucket = null, $uri, $saveTo = false)
 	{
 		if (empty($bucket)) {
-			$bucket = \Config::get('amazons3.default_bucket');
+			$bucket = self::config('default_bucket');
 		}
 		
 		return parent::getObject($bucket, $uri, $saveTo);
