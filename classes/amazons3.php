@@ -164,6 +164,15 @@ class AmazonS3 extends \S3
 		
 		return parent::getObject($bucket, $uri, $saveTo);
 	}
+	
+	public static function deleteObject($bucket = null, $uri)
+	{
+		if (empty($bucket)) {
+			$bucket = self::config('default_bucket');
+		}
+		
+		return parent::deleteObject($bucket, $uri);
+	}
 }
 
 class AmazonS3Exception extends \FuelException {}
