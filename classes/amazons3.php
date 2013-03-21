@@ -27,7 +27,7 @@ class AmazonS3 extends \S3
 	 * 
 	 * @var array
 	 */
-	protected static $_config;
+	protected static $_config = array();
 	
 	/**
 	 * Initialize by loading config
@@ -66,7 +66,7 @@ class AmazonS3 extends \S3
 	 * 
 	 * @return void
 	 */
-	public static function set_config($name, $value)
+	public static function set_config($name, $value = null)
 	{
 		if (is_array($name)) {
 			self::$_config = array_merge(self::$_config, $name);
@@ -130,7 +130,7 @@ class AmazonS3 extends \S3
 			$bucket = self::config('default_bucket');
 		}
 		
-		return Input::protocol() . '://' . self::config('host_url') . '/' . $bucket . '/' . $uri;
+		return \Input::protocol() . '://' . self::config('host_url') . '/' . $bucket . '/' . $uri;
 	}
 	
 	public static function putObject($input, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
