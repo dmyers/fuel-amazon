@@ -4,6 +4,7 @@ A super simple AmazonS3 package for the Amazon's S3 PHP SDK for Fuel.
 
 ## About
 * Version: 1.0.0
+* License: MIT License
 * Author: Derek Myers
 
 ## Installation
