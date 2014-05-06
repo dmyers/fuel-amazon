@@ -140,7 +140,7 @@ class AmazonS3 extends \S3
 		}
 		
 		if (empty($acl)) {
-			$acl = self::config('default_acl', self::ACL_PRIVATE);
+			$acl = self::config('default_acl', self::ACL_PUBLIC_READ);
 		}
 		
 		return parent::putObject($input, $bucket, $uri, $acl, $metaHeaders, $requestHeaders, $storageClass);

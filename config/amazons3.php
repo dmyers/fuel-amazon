@@ -28,7 +28,7 @@ return array(
 	/**
 	 * default_acl - The ACL option to use as default.
 	 */
-	'default_acl' => AmazonS3::ACL_PRIVATE,
+	'default_acl' => AmazonS3::ACL_PUBLIC_READ,
 	
 	/**
 	 * host_url - The URL to the amazon s3 host.
