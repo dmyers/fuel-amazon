@@ -9,11 +9,11 @@
  * @link		https://github.com/dmyers/fuel-amazons3
  */
 
-namespace AmazonS3;
+namespace Amazon;
 
 require_once PKGPATH.'amazons3'.DS.'vendor'.DS.'amazons3'.DS.'S3.php';
 
-class AmazonS3 extends \S3
+class Amazon extends \S3
 {
 	/**
 	 * loaded amazon s3 instance
@@ -175,4 +175,4 @@ class AmazonS3 extends \S3
 	}
 }
 
-class AmazonS3Exception extends \FuelException {}
+class AmazonException extends \FuelException {}
