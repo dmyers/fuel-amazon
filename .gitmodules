@@ -1,3 +1,0 @@
-[submodule "vendor/amazons3"]
-	path = vendor/amazons3
-	url = git://github.com/tpyo/amazon-s3-php-class.git
