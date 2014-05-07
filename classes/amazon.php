@@ -1,29 +1,29 @@
 <?php
 
 /**
- * Amazon S3 Class
+ * Amazon Class
  *
- * @package		AmazonS3
+ * @package		Amazon
  * @category	Package
  * @author		Derek Myers
- * @link		https://github.com/dmyers/fuel-amazons3
+ * @link		https://github.com/dmyers/fuel-amazon
  */
 
 namespace Amazon;
 
-require_once PKGPATH.'amazons3'.DS.'vendor'.DS.'amazons3'.DS.'S3.php';
+use Aws\Common\Aws;
 
-class Amazon extends \S3
+class Amazon
 {
 	/**
-	 * loaded amazon s3 instance
+	 * loaded amazon instance
 	 * 
-	 * @var AmazonS3
+	 * @var Amazon
 	 */
 	protected static $_instance;
 	
 	/**
-	 * loaded amazon s3 config array
+	 * loaded amazon config array
 	 * 
 	 * @var array
 	 */
@@ -34,11 +34,9 @@ class Amazon extends \S3
 	 */
 	public static function _init()
 	{
-		$config = \Config::load('amazons3', true);
+		$config = \Config::load('amazon', true);
 		
 		self::set_config($config);
-		
-		self::$useExceptions = true;
 	}
 	
 	/**
@@ -77,35 +75,35 @@ class Amazon extends \S3
 	}
 	
 	/**
-	 * Returns a new amazon s3 object.
+	 * Returns a new amazon object.
 	 *
-	 *     $amazons3 = AmazonS3::forge();
+	 *     $amazon = Amazon::forge();
 	 *
 	 * @param	void
 	 * @access	public
-	 * @return  AmazonS3
+	 * @return  Amazon
 	 */
 	public static function forge()
 	{
 		$config = self::config();
 		
-		if (empty($config['access_key_id'])) {
-			throw new \AmazonS3Exception('You must set the access_key_id config');
+		if (empty($config['key'])) {
+			throw new \AmazonException('You must set the key config');
 		}
 		
-		if (empty($config['secret_access_key'])) {
-			throw new \AmazonS3Exception('You must set the secret_access_key config');
+		if (empty($config['secret'])) {
+			throw new \AmazonException('You must set the secret config');
 		}
 		
-		return new static($config['access_key_id'], $config['secret_access_key'], $config['use_ssl']);
+		return Aws::factory($config);
 	}
 	
 	/**
-	 * create or return the amazons3 instance
+	 * create or return the amazon instance
 	 *
 	 * @param	void
 	 * @access	public
-	 * @return	AmazonS3 object
+	 * @return	Amazon object
 	 */
 	public static function instance()
 	{
@@ -114,64 +112,6 @@ class Amazon extends \S3
 		}
 		
 		return self::$_instance;
-	}
-	
-	/**
-	 * Gets the url to the object uri.
-	 *
-	 * @param string $bucket The bucket name to use.
-	 * @param string $uri    The URI to the object.
-	 *
-	 * @return string
-	 */
-	public static function url($bucket = null, $uri)
-	{
-		if (empty($bucket)) {
-			$bucket = self::config('default_bucket');
-		}
-		
-		return \Input::protocol() . '://' . self::config('host_url') . '/' . $bucket . '/' . $uri;
-	}
-	
-	public static function putObject($input, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
-	{
-		if (empty($bucket)) {
-			$bucket = self::config('default_bucket');
-		}
-		
-		if (empty($acl)) {
-			$acl = self::config('default_acl', self::ACL_PUBLIC_READ);
-		}
-		
-		return parent::putObject($input, $bucket, $uri, $acl, $metaHeaders, $requestHeaders, $storageClass);
-	}
-	
-	public static function putObjectFile($file, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $contentType = null)
-	{
-		return self::putObject(self::inputFile($file), $bucket, $uri, $acl, $metaHeaders, $contentType);
-	}
-	
-	public static function putObjectString($string, $bucket = null, $uri, $acl = null, $metaHeaders = array(), $contentType = 'text/plain')
-	{
-		return self::putObject($string, $bucket, $uri, $acl, $metaHeaders, $contentType);
-	}
-	
-	public static function getObject($bucket = null, $uri, $saveTo = false)
-	{
-		if (empty($bucket)) {
-			$bucket = self::config('default_bucket');
-		}
-		
-		return parent::getObject($bucket, $uri, $saveTo);
-	}
-	
-	public static function deleteObject($bucket = null, $uri)
-	{
-		if (empty($bucket)) {
-			$bucket = self::config('default_bucket');
-		}
-		
-		return parent::deleteObject($bucket, $uri);
 	}
 }
 

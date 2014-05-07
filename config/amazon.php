@@ -2,36 +2,24 @@
 
 return array(
 	/**
-	 * access_key_id - The identifier for your access key.
+	 * key - The identifier for your access key.
 	 *
-	 * You will find this in your amazon web services account
+	 * You will find this in your AWS account
 	 */
-	'access_key_id' => 'your_access_id',
+	'key' => 'your_access_id',
 	
 	/**
-	 * secret_access_key - The secret for your access key.
+	 * secret - The secret for your access key.
 	 *
-	 * You will find this in your amazon web services account
+	 * You will find this in your AWS account
 	 */
-	'secret_access_key' => 'your_secret_key',
+	'secret' => 'your_secret_key',
 	
 	/**
-	 * use_ssl - Whether to use secure connections.
+	 * secret - The region to use.
+	 * 
+	 * These are the regions: us-east-1, us-west-1, us-west-2, us-gov-west-1
+	 * eu-west-1, sa-east-1, ap-northeast-1, ap-southeast-1, ap-southeast-2
 	 */
-	'use_ssl' => false,
-	
-	/**
-	 * default_bucket - The bucket to use as default.
-	 */
-	'default_bucket' => 'your_bucket',
-	
-	/**
-	 * default_acl - The ACL option to use as default.
-	 */
-	'default_acl' => AmazonS3::ACL_PUBLIC_READ,
-	
-	/**
-	 * host_url - The URL to the amazon s3 host.
-	 */
-	'host_url' => 's3.amazonaws.com',
+	'region' => 'us-east-1',
 );
